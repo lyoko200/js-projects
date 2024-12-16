@@ -147,7 +147,27 @@ function readBook(id: number | string): void{
 let color: 'red';
 color = 'red' // VALID
 //color = 'blue' // INVALID
-console.log(color);
+//console.log(color);
 
 let isTrue: false | true;
 isTrue = false;
+
+// Tuples
+const moviesTuple: [string, number] = ['Movie1', 2];
+const moviesArray: (string | number)[] = ['Movie1', 2];
+let [movieName, id] = moviesTuple;
+//console.log(movieName)
+
+// Enums
+enum Weather {
+    Cloudy, // 0
+    Sunny, // 1
+    Rainy // 2
+}
+
+const sunny = Weather.Sunny;
+console.log(sunny + 1)
+
+enum CharacterClasse {Warrior = 'warrior', Wizard = 'wizaed', Archer = 'archer'};
+const merlin = CharacterClasse.Wizard
+console.log(`My character is a ${merlin}`)
