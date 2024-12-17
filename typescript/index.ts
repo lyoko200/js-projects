@@ -166,8 +166,135 @@ enum Weather {
 }
 
 const sunny = Weather.Sunny;
-console.log(sunny + 1)
+//console.log(sunny + 1)
 
 enum CharacterClasse {Warrior = 'warrior', Wizard = 'wizaed', Archer = 'archer'};
 const merlin = CharacterClasse.Wizard
-console.log(`My character is a ${merlin}`)
+//console.log(`My character is a ${merlin}`)
+
+// Classes
+class People {
+    // Access Modifiers
+    // public -> accessible from anywhere, both inside and outside the class
+    // private -> accessible only from within the class it is definied in
+    // protected -> accessible from within the class it is definied in + subclasses
+    protected name: string;
+    protected age: number;
+
+    constructor(name: string, age: number){
+        this.name = name;
+        this.age = age;
+    }
+
+    private getName(): string {
+        return this.name;
+    }
+
+    public hello(){
+        console.log(`Hi, I'm ${this.getName()}, I'm ${this.age} years old`);
+    }
+}
+
+const people1 = new People('Mallo', 30);
+//people1.hello();
+//people1.getName() // ERROR : getName() defined as private
+
+class BestEmployee extends People {
+    id: number;
+
+    constructor(name: string, age: number, id: number){
+        super(name, age); // accessible because defined as protected in the class People
+        this.id = id;
+    }
+
+    get employeeId(): number {
+        return this.id;
+    }
+
+    set employeeId(id: number){
+        this.id = id;
+        if(this.id === 0){
+            throw new Error('Error while assigning employee id');
+        }
+    }
+}
+
+const employee1 = new BestEmployee('Mallo', 30, 1);
+const employee2 = new BestEmployee('Toto', 23, 2);
+//employee1.hello();
+
+//employee2.employeeId = 0; // returns an error
+
+// Interfaces
+// Objects
+ interface Dog {
+    readonly name: string,
+    age: number,
+    isPlaying?: boolean
+ }
+
+ const fido: Dog = {
+    name: 'Fido',
+    age: 5,
+ }
+//console.log(fido.age);
+//console.log(fido.isPlaying); // undefined because undeclared
+
+// Functions
+interface Calculus {
+    (x: number, y:number):number;
+}
+
+const add: Calculus = (a, b) => a + b;
+// console.log(add(5, 5));
+
+// Classes
+interface Bird {
+    readonly name: string;
+    fish: number;
+    cuiCui(): void;
+    eatFish(): boolean
+}
+
+class MyBird implements Bird { // implements the Interface
+    name: string;
+    fish: number;
+
+    constructor(name: string, fish: number){
+        this.name = name;
+        this.fish = fish;
+    }
+
+    cuiCui(){
+        console.log('Cui');
+    }
+
+    eatFish(){
+        return this.fish > 0 ? true : false;
+    }
+}
+
+const birdie = new MyBird('Birdie', 0);
+//console.log(birdie.eatFish());
+
+// Extension on Interfaces
+interface Fish {
+    readonly name: string;
+    quantity: number;
+    fishInfo(name: string, quantity: number): string;
+}
+
+interface Shark extends Fish {
+    isDangerous: boolean;
+}
+
+const babyShark: Shark = {
+    name: 'Baby Shark',
+    quantity: 1,
+    isDangerous: false,
+    fishInfo(name: string, quantity: number): string {
+        return `Name: ${name}, Quantity ${quantity}`;
+    }
+}
+console.log(babyShark.fishInfo(babyShark.name, babyShark.quantity));
+console.log(babyShark.isDangerous);
