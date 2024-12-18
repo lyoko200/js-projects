@@ -256,26 +256,38 @@ interface Bird {
     eatFish(): boolean
 }
 
+// Declaration merging (interface extension)
+interface Bird {
+    canFly: boolean
+}
+
 class MyBird implements Bird { // implements the Interface
     name: string;
     fish: number;
+    canFly: boolean;
 
-    constructor(name: string, fish: number){
+    constructor(name: string, fish: number, canFly: boolean){
         this.name = name;
         this.fish = fish;
+        this.canFly = canFly;
     }
 
-    cuiCui(){
+    cuiCui(): void{
         console.log('Cui');
     }
 
-    eatFish(){
+    eatFish(): boolean{
         return this.fish > 0 ? true : false;
+    }
+
+    fly(): string{
+       return this.canFly ? 'It can fly' : 'It cannot fly';
     }
 }
 
-const birdie = new MyBird('Birdie', 0);
+const birdie = new MyBird('Birdie', 0, true);
 //console.log(birdie.eatFish());
+//console.log(birdie.fly());
 
 // Extension on Interfaces
 interface Fish {
@@ -293,8 +305,11 @@ const babyShark: Shark = {
     quantity: 1,
     isDangerous: false,
     fishInfo(name: string, quantity: number): string {
-        return `Name: ${name}, Quantity ${quantity}`;
+        return `Name: ${name}, Quantity: ${quantity}`;
     }
 }
 console.log(babyShark.fishInfo(babyShark.name, babyShark.quantity));
 console.log(babyShark.isDangerous);
+console.log()
+
+// Coming soon... GENERICS
