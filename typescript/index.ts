@@ -308,8 +308,15 @@ const babyShark: Shark = {
         return `Name: ${name}, Quantity: ${quantity}`;
     }
 }
-console.log(babyShark.fishInfo(babyShark.name, babyShark.quantity));
-console.log(babyShark.isDangerous);
-console.log()
+//console.log(babyShark.fishInfo(babyShark.name, babyShark.quantity));
+//console.log(babyShark.isDangerous);
 
-// Coming soon... GENERICS
+// Generics
+function showInfo<Type>(x: Type): Type { // <T> = Type Parameter
+    return x; 
+}
+
+const num = showInfo<number>(2);
+console.log(num);
+const bool = showInfo<boolean>(true);
+console.log(bool);
